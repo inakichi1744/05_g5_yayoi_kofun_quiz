@@ -526,11 +526,23 @@ const ALL_QUESTIONS = [
     explanation:'同じ「ワカタケル大王」の名が刻まれた鉄剣が東（埼玉県）と西（熊本県）の両方から出土したことで、大和政権の支配が関東地方から九州地方まで広大な範囲に及んでいたことが証明されました。これは文字による記録が残る最古レベルの政治支配の証拠のひとつです。', exp:10 },
 ];
 
+// 前の問題の答えが次の問題文に出てくる問題などは、まとめて決まった順番で出す（まとまり同士・その他はランダム）
+const ORDER_GROUPS = [[1, 2, 3], [5, 6], [15, 16], [13, 18, 19, 20], [12, 7]];
+function orderQuestions(list){
+  const byId={}; list.forEach(q=>byId[q.id]=q);
+  const used=new Set(); const units=[];
+  ORDER_GROUPS.forEach(g=>{const u=g.map(id=>byId[id]).filter(Boolean); u.forEach(q=>used.add(q.id)); if(u.length) units.push(u);});
+  list.forEach(q=>{ if(!used.has(q.id)) units.push([q]); });
+  for(let i=units.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1)); [units[i],units[j]]=[units[j],units[i]];}
+  return units.flat();
+}
+
+
 let questions=[], currentIndex=0, correctCount=0, wrongCount=0, answered=false, results=[];
 
 function startQuiz(questionSet){
   const isReview=!!questionSet;
-  questions=questionSet||[...ALL_QUESTIONS].sort(()=>Math.random()-0.5);
+  questions=questionSet||orderQuestions(ALL_QUESTIONS);
   currentIndex=0; correctCount=0; wrongCount=0; results=[]; answered=false; exp=0;
   if(!isReview) earnedTitles=[];
   document.getElementById('intro-screen').style.display='none';
