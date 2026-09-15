@@ -212,6 +212,7 @@ body::before {
 .qa-popup-close{margin-top:16px;width:100%;padding:10px;background:linear-gradient(135deg,var(--primary-dark),var(--primary-light));color:#fff;border:none;border-radius:6px;font-weight:700;cursor:pointer;font-family:inherit;}
 .result-table td.q-cell{cursor:pointer;color:var(--primary-dark);text-decoration:underline dotted;}
 .exp-col-btn{font-size:0.74rem;padding:3px 10px;border:1.5px solid var(--gold-dark);border-radius:999px;background:#fffde7;color:#a07020;cursor:pointer;font-family:inherit;font-weight:700;white-space:nowrap;}
+.itag{word-break:keep-all;overflow-wrap:anywhere;} /* itag-nobreak */
 </style>
 </head>
 <body>
@@ -242,10 +243,9 @@ body::before {
   <div class="intro-sub">３月の演習から出題！</div>
   <div class="intro-card">
     <div class="intro-tags">
-      <span class="itag itag-full" id="q-count-tag">🎯 全20問</span>
       <span class="itag">弥生土器</span>
       <span class="itag">高床倉庫</span>
-      <span class="itag">邪馬台国・卑弥呼</span>
+      <span class="itag">邪馬台国・<wbr>卑弥呼</span>
       <span class="itag">前方後円墳</span>
       <span class="itag">はにわ</span>
       <span class="itag">大和政権</span>
